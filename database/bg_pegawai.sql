@@ -66,7 +66,7 @@ CREATE TABLE alasan_karyawan (
 -- Dumping data untuk tabel 'alasan_karyawan'
 --
 
-INSERT INTO alasan_karyawan ('id', 'nama', 'alasan', 'tanggal') VALUES
+INSERT INTO alasan_karyawan (id, 'nama', 'alasan', 'tanggal') VALUES
 (1, 'Muhammad Julfansa', 'Izin cuti mengikuti seminar di jakarta.', '08/04/2019'),
 (2, 'Ilham Mantiqi', 'Medical Check Up', '15/09/2019'),
 (3, 'Larasati Hartawan', 'Holiday', '15/09/2019'),
@@ -366,7 +366,7 @@ CREATE TABLE users_karyawan (
 -- Dumping data untuk tabel 'users_karyawan'
 --
 
-INSERT INTO users_karyawan ('id', 'nik', 'password', 'level') VALUES
+INSERT INTO users_karyawan (id, 'nik', 'password', 'level') VALUES
 (3, '1630511087', '8d05dd2f03981f86b56c23951f3f34d7', 'Karyawan'),
 (4, '1630511090', 'b63d204bf086017e34d8bd27ab969f28', 'Karyawan'),
 (5, '1630510999', 'c31dce6ce8cb6b3a9cb1f182a403b902', 'Karyawan'),
@@ -382,7 +382,7 @@ INSERT INTO users_karyawan ('id', 'nik', 'password', 'level') VALUES
 -- Indeks untuk tabel 'absensi_karyawan'
 --
 ALTER TABLE absensi_karyawan
-  ADD PRIMARY KEY ('id');
+  ADD PRIMARY KEY (id);
 
 --
 -- Indeks untuk tabel 'alasan_karyawan'
@@ -428,7 +428,7 @@ ALTER TABLE absensi_karyawan
 -- AUTO_INCREMENT untuk tabel 'alasan_karyawan'
 --
 ALTER TABLE alasan_karyawan
-  MODIFY 'id' int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel 'data_karyawan'
@@ -446,7 +446,7 @@ ALTER TABLE history_karyawan
 -- AUTO_INCREMENT untuk tabel 'setting_absensi'
 --
 ALTER TABLE setting_absensi
-  MODIFY 'id' int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel 'users_karyawan'
