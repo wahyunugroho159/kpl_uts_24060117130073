@@ -18,9 +18,9 @@ class Karyawan_model extends CI_Model
         return $this->db->get('rekap_absen')->result();
     }
 
-    public function getDataKaryawanById($id)
+    public function getDataKaryawanById($idk)
     {
-        return $this->db->get_where('data_karyawan', array('id' => $id))->result();
+        return $this->db->get_where('data_karyawan', array('id' => $idk))->result();
     }
 
     public function getDataKaryawanByNik($nik)
@@ -28,9 +28,9 @@ class Karyawan_model extends CI_Model
         return $this->db->get_where('data_karyawan', array('nik' => $nik))->result();
     }
 
-    public function getAbsensiKaryawanById($id)
+    public function getAbsensiKaryawanById($idk)
     {
-        return $this->db->get_where('absensi_karyawan', array('id' => $id))->result();
+        return $this->db->get_where('absensi_karyawan', array('id' => $idk))->result();
     }
 
     public function getAbsensiKaryawanByName($name)
@@ -43,9 +43,9 @@ class Karyawan_model extends CI_Model
         return $this->db->order_by('id', 'DESC')->get_where('alasan_karyawan', array('nama' => $name))->result();
     }
 
-    public function changeInfoKaryawanById($id, $data)
+    public function changeInfoKaryawanById($idk, $data)
     {
-        return $this->db->set($data)->where('id', $id)->update('data_karyawan');
+        return $this->db->set($data)->where('id', $idk)->update('data_karyawan');
     }
 
     public function addDataKaryawan($data)
@@ -63,9 +63,9 @@ class Karyawan_model extends CI_Model
     }
 
 
-    public function updateAbsensiKaryawan($id, $kehadiran, $option, $jumlah)
+    public function updateAbsensiKaryawan($idk, $kehadiran, $option, $jumlah)
     {
-        return $this->db->set($kehadiran, $kehadiran . $option . $jumlah, FALSE)->where('id', $id)->update('absensi_karyawan');
+        return $this->db->set($kehadiran, $kehadiran . $option . $jumlah, FALSE)->where('id', $idk)->update('absensi_karyawan');
     }
 
     public function addAlasanKaryawan($name, $alasan, $date)
@@ -81,17 +81,17 @@ class Karyawan_model extends CI_Model
     {
         return $this->db->set('tanggal', '')->set('jam_masuk', '')->set('jam_pulang', '')->set('status', 'Belum Absen')->update('daftar_absen');
     }
-    public function resetAbsenById($id)
+    public function resetAbsenById($idk)
     {
-        return $this->db->set('absen', '0', FALSE)->where('id', $id)->update('absensi_karyawan');
+        return $this->db->set('absen', '0', FALSE)->where('id', $idk)->update('absensi_karyawan');
     }
-    public function resetDaftarAbsenById($id)
+    public function resetDaftarAbsenById($idk)
     {
-        return $this->db->set('tanggal', '')->set('jam_masuk', '')->set('jam_pulang', '')->set('status', 'Belum Absen')->where('id', $id)->update('daftar_absen');
+        return $this->db->set('tanggal', '')->set('jam_masuk', '')->set('jam_pulang', '')->set('status', 'Belum Absen')->where('id', $idk)->update('daftar_absen');
     }
-    public function deleteKaryawan($id)
+    public function deleteKaryawan($idk)
     {
-        return $this->db->delete('data_karyawan', array('id' => $id));
+        return $this->db->delete('data_karyawan', array('id' => $idk));
     }
     public function deleteAbsen($nama)
     {
@@ -118,13 +118,13 @@ class Karyawan_model extends CI_Model
         return $this->db->get('setting_absensi')->result();
     }
 
-    public function absenHarian($id)
+    public function absenHarian($idk)
     {
-        return $this->db->set('absen', '1')->where('id', $id)->update('absensi_karyawan');
+        return $this->db->set('absen', '1')->where('id', $idk)->update('absensi_karyawan');
     }
-    public function absenHarian2($id)
+    public function absenHarian2($idk)
     {
-        return $this->db->set('absen', '2')->where('id', $id)->update('absensi_karyawan');
+        return $this->db->set('absen', '2')->where('id', $idk)->update('absensi_karyawan');
     }
 
     public function addHistory($name, $info, $tanggal)
@@ -149,17 +149,17 @@ class Karyawan_model extends CI_Model
     {
         return $this->db->get('daftar_absen')->result();
     }
-    public function absenMasuk($id)
+    public function absenMasuk($idk)
     {
         $tanggal = date('d/m/Y');
         $jam = date('H:i');
-        return $this->db->set('tanggal', $tanggal)->set('jam_masuk', $jam)->set('status', 'Masuk')->where('id', $id)->update('daftar_absen');
+        return $this->db->set('tanggal', $tanggal)->set('jam_masuk', $jam)->set('status', 'Masuk')->where('id', $idk)->update('daftar_absen');
     }
-    public function absenPulang($id)
+    public function absenPulang($idk)
     {
         $tanggal = date('d/m/Y');
         $jam = date('H:i');
-        return $this->db->set('tanggal', $tanggal)->set('jam_pulang', $jam)->set('status', 'Pulang')->where('id', $id)->update('daftar_absen');
+        return $this->db->set('tanggal', $tanggal)->set('jam_pulang', $jam)->set('status', 'Pulang')->where('id', $idk)->update('daftar_absen');
     }
     public function addRekap($data)
     {

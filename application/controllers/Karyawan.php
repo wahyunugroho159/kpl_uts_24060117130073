@@ -95,10 +95,10 @@ class Karyawan extends CI_Controller
         $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil mereset absen'));
         redirect(base_url() . 'karyawan/absensi_karyawan');
     }
-    public function reset($id)
+    public function reset($idk)
     {
-        $this->karyawan->resetAbsenByID($id);
-        $this->karyawan->resetDaftarAbsenByID($id);
+        $this->karyawan->resetAbsenByID($idk);
+        $this->karyawan->resetDaftarAbsenByID($idk);
         $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil mereset absen'));
         redirect(base_url() . 'karyawan/absensi_karyawan');
     }
@@ -129,12 +129,12 @@ class Karyawan extends CI_Controller
 
     public function edit()
     {
-        $id = $this->uri->segment(3);
-        $cekId = $this->karyawan->getDataKaryawanById($id);
+        $idk = $this->uri->segment(3);
+        $cekId = $this->karyawan->getDataKaryawanById($idk);
         if ($cekId[0]->id) {
-            $dataKaryawan = $this->karyawan->getDataKaryawanById($id);
+            $dataKaryawan = $this->karyawan->getDataKaryawanById($idk);
             $data['dataKaryawan'] = $dataKaryawan;
-            $data['absensiKaryawan'] = $this->karyawan->getAbsensiKaryawanById($id);
+            $data['absensiKaryawan'] = $this->karyawan->getAbsensiKaryawanById($idk);
             $data['alasanKaryawan'] = $this->karyawan->getAlasanKaryawanByName($dataKaryawan[0]->name);
             $this->load->view('admin/EditKaryawan', $data);
         } else {
