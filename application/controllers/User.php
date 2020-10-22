@@ -34,10 +34,10 @@ class User extends CI_Controller
 
     public function index()
     {
-        $addHistory = $this->karyawan->addHistory($this->session->userdata('name'), $this->session->userdata('name') . ' Telah melakukan login', date('d/m/Y H:i:s'));
+        $this->karyawan->addHistory($this->session->userdata('name'), $this->session->userdata('name') . ' Telah melakukan login', date('d/m/Y H:i:s'));
         $dataKaryawan = $this->karyawan->getDataKaryawanById($this->session->userdata('id'));
         $data['dataKaryawan'] = $dataKaryawan;
-        $data['settingAbsensi'] = $getSettingAbsensi = $this->karyawan->getSettingAbsensi();
+        $data['settingAbsensi'] = $this->karyawan->getSettingAbsensi();
         $data['absensiKaryawan'] = $this->karyawan->getAbsensiKaryawanById($this->session->userdata('id'));
         $data['alasanKaryawan'] = $this->karyawan->getAlasanKaryawanByName($this->session->userdata('name'));
         $this->load->view('user/Dashboard', $data);
@@ -64,7 +64,7 @@ class User extends CI_Controller
                     $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($id, 'hadir', '+', '1');
                     $tambahHistory = $this->karyawan->addHistory($cekId[0]->name, $cekId[0]->name . ' telah melakukan absen', date('d/m/Y H:i:s'));
                     $daftarAbsen = $this->karyawan->absenMasuk($id);
-                    if ($absenHarian && $tambahKehadiran && $tambahHistory) {
+                    if ($absenHarian && $tambahKehadiran && $tambahHistory && $daftarAbsen) {
                         $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen berhasil'));
                         redirect(base_url() . 'user');
                     } else {
