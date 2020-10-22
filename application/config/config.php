@@ -1,8 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 // date_default_timezone_set('Asia/Jakarta');
+date_default_timezone_set('Asia/tokyo');
 // date_default_timezone_set('europe/london');
-date_default_timezone_set('america/new_york');
+// date_default_timezone_set('america/new_york');
 
 /*
 |--------------------------------------------------------------------------
