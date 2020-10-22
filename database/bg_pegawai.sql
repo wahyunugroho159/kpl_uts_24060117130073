@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE absensi_karyawan (
-  'id' int(11) NOT NULL,
+  id int(11) NOT NULL,
   'nama' varchar(255) NOT NULL,
   'absen' int(11) NOT NULL,
   'hadir' int(11) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE absensi_karyawan (
 -- Dumping data untuk tabel 'absensi_karyawan'
 --
 
-INSERT INTO absensi_karyawan ('id', 'nama', 'absen', 'hadir', 'tidak_hadir', 'izin') VALUES
+INSERT INTO absensi_karyawan (id, 'nama', 'absen', 'hadir', 'tidak_hadir', 'izin') VALUES
 (1, 'Muhammad Julfansa', 1, 1, 0, 1),
 (2, 'Robby Takdirillah', 1, 1, 0, 1),
 (3, 'Ilham Mantiqi', 0, 0, 1, 1),
@@ -56,7 +56,7 @@ INSERT INTO absensi_karyawan ('id', 'nama', 'absen', 'hadir', 'tidak_hadir', 'iz
 --
 
 CREATE TABLE alasan_karyawan (
-  'id' int(11) NOT NULL,
+  id int(11) NOT NULL,
   'nama' varchar(255) NOT NULL,
   'alasan' varchar(255) NOT NULL,
   'tanggal' varchar(255) NOT NULL
@@ -80,7 +80,7 @@ INSERT INTO alasan_karyawan (id, 'nama', 'alasan', 'tanggal') VALUES
 --
 
 CREATE TABLE data_karyawan (
-  'id' int(11) NOT NULL,
+  id int(11) NOT NULL,
   'name' varchar(255) NOT NULL,
   'position' varchar(255) NOT NULL,
   'age' int(11) NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE data_karyawan (
 -- Dumping data untuk tabel 'data_karyawan'
 --
 
-INSERT INTO data_karyawan ('id', 'name', 'position', 'age', 'start_date', 'salary', 'email', 'handphone', 'nik', 'tentang', 'image_name') VALUES
+INSERT INTO data_karyawan (id, 'name', 'position', 'age', 'start_date', 'salary', 'email', 'handphone', 'nik', 'tentang', 'image_name') VALUES
 (2, 'Robby Takdirillah', 'Analys Credit', 21, '03/12/2013', 9000000, 'robbytakdirillah@gmail.com', '85210245370', '1630511087', 'Karyawan Terbaik', '5.jpg'),
 (3, 'Ilham Mantiqi', 'Marketing', 26, '12/01/2012', 6000000, 'ilham.m@yahoo.com', '85210254318', '1630511090', 'Marketing', '2.jpg'),
 (4, 'Larasati Hartawan', 'Costumer Service', 22, '09/09/2016', 7400000, 'yayas.h@gmail.com', '85623421109', '1630510999', 'CS', '4.jpg'),
@@ -111,7 +111,7 @@ INSERT INTO data_karyawan ('id', 'name', 'position', 'age', 'start_date', 'salar
 --
 
 CREATE TABLE history_karyawan (
-  'id' int(11) NOT NULL,
+  id int(11) NOT NULL,
   'nama' varchar(255) NOT NULL,
   'info' varchar(255) NOT NULL,
   'tanggal' varchar(255) NOT NULL
@@ -121,7 +121,7 @@ CREATE TABLE history_karyawan (
 -- Dumping data untuk tabel 'history_karyawan'
 --
 
-INSERT INTO history_karyawan ('id', 'nama', 'info', 'tanggal') VALUES
+INSERT INTO history_karyawan (id, 'nama', 'info', 'tanggal') VALUES
 (1, 'Admin', 'Admin telah melakukan login', '08/04/2019 11:03:54'),
 (2, 'Admin', 'Admin telah melakukan login', '08/04/2019 11:04:22'),
 (3, 'Muhammad Julfansa', 'Muhammad Julfansa Telah melakukan login', '08/04/2019 11:07:42'),
@@ -337,7 +337,7 @@ INSERT INTO history_karyawan ('id', 'nama', 'info', 'tanggal') VALUES
 --
 
 CREATE TABLE setting_absensi (
-  'id' int(11) NOT NULL,
+  id int(11) NOT NULL,
   'mulai_absen' varchar(255) NOT NULL,
   'selesai_absen' varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -346,7 +346,7 @@ CREATE TABLE setting_absensi (
 -- Dumping data untuk tabel 'setting_absensi'
 --
 
-INSERT INTO setting_absensi ('id', 'mulai_absen', 'selesai_absen') VALUES
+INSERT INTO setting_absensi (id, 'mulai_absen', 'selesai_absen') VALUES
 (1, '06:00', '24:00');
 
 -- --------------------------------------------------------
@@ -356,7 +356,7 @@ INSERT INTO setting_absensi ('id', 'mulai_absen', 'selesai_absen') VALUES
 --
 
 CREATE TABLE users_karyawan (
-  'id' int(11) NOT NULL,
+  id int(11) NOT NULL,
   'nik' varchar(255) NOT NULL,
   'password' varchar(255) NOT NULL,
   'level' varchar(255) NOT NULL
@@ -388,31 +388,31 @@ ALTER TABLE absensi_karyawan
 -- Indeks untuk tabel 'alasan_karyawan'
 --
 ALTER TABLE alasan_karyawan
-  ADD PRIMARY KEY ('id');
+  ADD PRIMARY KEY (id);
 
 --
 -- Indeks untuk tabel 'data_karyawan'
 --
 ALTER TABLE data_karyawan
-  ADD PRIMARY KEY ('id');
+  ADD PRIMARY KEY (id);
 
 --
 -- Indeks untuk tabel 'history_karyawan'
 --
 ALTER TABLE history_karyawan
-  ADD PRIMARY KEY ('id');
+  ADD PRIMARY KEY (id);
 
 --
 -- Indeks untuk tabel 'setting_absensi'
 --
 ALTER TABLE setting_absensi
-  ADD PRIMARY KEY ('id');
+  ADD PRIMARY KEY (id);
 
 --
 -- Indeks untuk tabel 'users_karyawan'
 --
 ALTER TABLE users_karyawan
-  ADD PRIMARY KEY ('id');
+  ADD PRIMARY KEY (id);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -422,7 +422,7 @@ ALTER TABLE users_karyawan
 -- AUTO_INCREMENT untuk tabel 'absensi_karyawan'
 --
 ALTER TABLE absensi_karyawan
-  MODIFY 'id' int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel 'alasan_karyawan'
@@ -434,13 +434,13 @@ ALTER TABLE alasan_karyawan
 -- AUTO_INCREMENT untuk tabel 'data_karyawan'
 --
 ALTER TABLE data_karyawan
-  MODIFY 'id' int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel 'history_karyawan'
 --
 ALTER TABLE history_karyawan
-  MODIFY 'id' int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
 
 --
 -- AUTO_INCREMENT untuk tabel 'setting_absensi'
@@ -452,7 +452,7 @@ ALTER TABLE setting_absensi
 -- AUTO_INCREMENT untuk tabel 'users_karyawan'
 --
 ALTER TABLE users_karyawan
-  MODIFY 'id' int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
