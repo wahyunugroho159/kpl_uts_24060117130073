@@ -144,11 +144,11 @@ class Karyawan extends CI_Controller
 
     public function delete()
     {
-        $id = $this->uri->segment(3);
-        $cekId = $this->karyawan->getDataKaryawanById($id);
+        $idk = $this->uri->segment(3);
+        $cekId = $this->karyawan->getDataKaryawanById($idk);
 
         if ($cekId[0]->id) {
-            $deleteKaryawan = $this->karyawan->deleteKaryawan($id);
+            $deleteKaryawan = $this->karyawan->deleteKaryawan($idk);
             $deleteAbsen = $this->karyawan->deleteAbsen($cekId[0]->name);
             if ($deleteKaryawan == 1 && $deleteAbsen) {
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menghapus karyawan'));
@@ -165,23 +165,23 @@ class Karyawan extends CI_Controller
 
     public function changeFotoKaryawan()
     {
-        $id = $this->input->post('id');
+        $idk = $this->input->post('id');
         $upload = $this->karyawan->uploadImage();
-        if ($id && $upload['result'] == "success") {
+        if ($idk && $upload['result'] == "success") {
             $data = array(
                 'image_name' => $upload['file']['file_name']
             );
-            $changeFoto = $this->karyawan->changeInfoKaryawanById($id, $data);
+            $changeFoto = $this->karyawan->changeInfoKaryawanById($idk, $data);
             if ($changeFoto == 1) {
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil mengubah foto'));
-                redirect(base_url() . 'karyawan/edit/' . $id);
+                redirect(base_url() . 'karyawan/edit/' . $idk);
             } else {
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengubah foto'));
-                redirect(base_url() . 'karyawan/edit/' . $id);
+                redirect(base_url() . 'karyawan/edit/' . $idk);
             }
         } else {
             $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengupload gambar'));
-            redirect(base_url() . 'karyawan/edit/' . $id);
+            redirect(base_url() . 'karyawan/edit/' . $idk);
         }
     }
 
@@ -281,9 +281,9 @@ class Karyawan extends CI_Controller
         if ($name && $kehadiran && $jumlah && $alasan) {
             $absensiKaryawan = $this->karyawan->getAbsensiKaryawanByName($name);
             if ($absensiKaryawan[0]->id) {
-                $updateAbsensiKaryawan = $this->karyawan->updateAbsensiKaryawan($absensiKaryawan[0]->id, $kehadiran, '+', $jumlah);
+                $upAbsensiKaryawan = $this->karyawan->updateAbsensiKaryawan($absensiKaryawan[0]->id, $kehadiran, '+', $jumlah);
                 $addAlasanKaryawan = $this->karyawan->addAlasanKaryawan($name, $alasan, $date);
-                if ($updateAbsensiKaryawan == 1 || $addAlasanKaryawan == 1) {
+                if ($upAbsensiKaryawan == 1 || $addAlasanKaryawan == 1) {
                     $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menambah absensi'));
                     redirect(base_url() . 'karyawan/absensi_karyawan');
                 } else {

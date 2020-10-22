@@ -1,17 +1,20 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Auth extends CI_Controller {
+class Auth extends CI_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load->model('Karyawan_model', 'karyawan');
         if ($this->session->userdata('nik') !== null) {
-            redirect(base_url().'karyawan');
+            redirect(base_url() . 'karyawan');
         }
     }
-    
-    public function messageAlert($type, $title) {
+
+    public function messageAlert($type, $title)
+    {
         $messageAlert = "
         const Toast = Swal.mixin({
             toast: true,
@@ -21,18 +24,20 @@ class Auth extends CI_Controller {
         });
     
         Toast.fire({
-            type: '".$type."',
-            title: '".$title."'
+            type: '" . $type . "',
+            title: '" . $title . "'
         });
         ";
         return $messageAlert;
     }
 
-    public function login() {
+    public function login()
+    {
         $this->load->view('admin/Login');
     }
 
-    public function loginKaryawan() {
+    public function loginKaryawan()
+    {
         $nik = $this->input->post('nik');
         $password = md5($this->input->post('password'));
         if ($nik && $password) {
@@ -43,14 +48,14 @@ class Auth extends CI_Controller {
                 $this->session->set_userdata('name', $getDataKaryawan[0]->name);
                 $this->session->set_userdata('nik', $nik);
                 $this->session->set_userdata('level', $loginKaryawan[0]->level);
-                redirect(base_url().'karyawan');
-            }else{
-                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Login gagal'));
-                redirect();
+                redirect(base_url() . 'karyawan');
+                return;
             }
-        }else{
             $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Login gagal'));
             redirect();
+            return;
         }
+        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Login gagal'));
+        redirect();
     }
 }

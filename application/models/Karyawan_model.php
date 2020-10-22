@@ -141,9 +141,8 @@ class Karyawan_model extends CI_Model
         $this->load->library('upload', $config);
         if ($this->upload->do_upload('upload_image')) {
             return array('result' => 'success', 'file' => $this->upload->data(), 'error' => '');
-        } else {
-            return array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors());
         }
+        return array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors());
     }
     public function getAllDaftarAbsen()
     {

@@ -83,8 +83,8 @@ class User extends CI_Controller
     }
     public function absenPulang()
     {
-        $id = $this->uri->segment('3');
-        $cekId = $this->karyawan->getDataKaryawanById($id);
+        $idk = $this->uri->segment('3');
+        $cekId = $this->karyawan->getDataKaryawanById($idk);
         if ($cekId[0]->id) {
             $getSettingAbsensi = $this->karyawan->getSettingAbsensi();
             $start = $getSettingAbsensi[0]->mulai_absen;
@@ -93,14 +93,14 @@ class User extends CI_Controller
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Waktu untuk absen belum di mulai'));
                 redirect(base_url() . 'user');
             } elseif (time() >= strtotime($end)) {
-                $absensiKaryawan = $this->karyawan->getAbsensiKaryawanById($id);
+                $absensiKaryawan = $this->karyawan->getAbsensiKaryawanById($idk);
                 if ($absensiKaryawan[0]->absen == 2) {
                     $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Sudah absen'));
                     redirect(base_url() . 'user');
                 } else {
-                    $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($id, 'hadir', '+', '1');
-                    $absenHarian = $this->karyawan->absenHarian2($id);
-                    $daftarAbsen = $this->karyawan->absenPulang($id);
+                    $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($idk, 'hadir', '+', '1');
+                    $absenHarian = $this->karyawan->absenHarian2($idk);
+                    $daftarAbsen = $this->karyawan->absenPulang($idk);
                     $tambahHistory = $this->karyawan->addHistory($cekId[0]->name, $cekId[0]->name . ' telah melakukan absen', date('d/m/Y H:i:s'));
                     if ($absenHarian && $tambahKehadiran && $tambahHistory && $daftarAbsen) {
                         $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen berhasil'));
