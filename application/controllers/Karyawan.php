@@ -90,7 +90,7 @@ class Karyawan extends CI_Controller
             array_push($Array, $newArray);
         }
         $this->karyawan->addRekap($Array);
-        // $resetAbsen = $this->karyawan->resetAbsen();
+        $resetAbsen = $this->karyawan->resetAbsen();
         $resetDaftarAbsen = $this->karyawan->resetDaftarAbsen();
         $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil mereset absen'));
         redirect(base_url() . 'karyawan/absensi_karyawan');
