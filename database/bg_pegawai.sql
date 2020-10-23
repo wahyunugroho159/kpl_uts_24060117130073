@@ -97,7 +97,7 @@ CREATE TABLE data_karyawan (
 -- Dumping data untuk tabel 'data_karyawan'
 --
 
-INSERT INTO data_karyawan (id, 'name', position, age, 'start_date', salary, email, handphone, nik, tentang, image_name) VALUES
+INSERT INTO data_karyawan (id, name, position, age, start_date, salary, email, handphone, nik, tentang, image_name) VALUES
 (2, 'Robby Takdirillah', 'Analys Credit', 21, '03/12/2013', 9000000, 'robbytakdirillah@gmail.com', '85210245370', '1630511087', 'Karyawan Terbaik', '5.jpg'),
 (3, 'Ilham Mantiqi', 'Marketing', 26, '12/01/2012', 6000000, 'ilham.m@yahoo.com', '85210254318', '1630511090', 'Marketing', '2.jpg'),
 (4, 'Larasati Hartawan', 'Costumer Service', 22, '09/09/2016', 7400000, 'yayas.h@gmail.com', '85623421109', '1630510999', 'CS', '4.jpg'),
@@ -366,7 +366,7 @@ CREATE TABLE users_karyawan (
 -- Dumping data untuk tabel 'users_karyawan'
 --
 
-INSERT INTO users_karyawan (id, nik, 'password', 'level') VALUES
+INSERT INTO users_karyawan (id, nik, password, level) VALUES
 (3, '1630511087', '8d05dd2f03981f86b56c23951f3f34d7', 'Karyawan'),
 (4, '1630511090', 'b63d204bf086017e34d8bd27ab969f28', 'Karyawan'),
 (5, '1630510999', 'c31dce6ce8cb6b3a9cb1f182a403b902', 'Karyawan'),

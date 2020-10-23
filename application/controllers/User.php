@@ -59,27 +59,27 @@ class User extends CI_Controller
                 if ($absensiKaryawan[0]->absen == 1) {
                     $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Sudah absen'));
                     redirect(base_url() . 'user');
-                } else {
-                    $absenHarian = $this->karyawan->absenHarian($idk);
-                    $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($idk, 'hadir', '+', '1');
-                    $tambahHistory = $this->karyawan->addHistory($cekId[0]->name, $cekId[0]->name . ' telah melakukan absen', date('d/m/Y H:i:s'));
-                    $daftarAbsen = $this->karyawan->absenMasuk($idk);
-                    if ($absenHarian && $tambahKehadiran && $tambahHistory && $daftarAbsen) {
-                        $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen berhasil'));
-                        redirect(base_url() . 'user');
-                    } else {
-                        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
-                        redirect(base_url() . 'user');
-                    }
+                    return;
                 }
-            } else {
-                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Batas waktu untuk absen telah berakhir'));
+                $absenHarian = $this->karyawan->absenHarian($idk);
+                $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($idk, 'hadir', '+', '1');
+                $tambahHistory = $this->karyawan->addHistory($cekId[0]->name, $cekId[0]->name . ' telah melakukan absen', date('d/m/Y H:i:s'));
+                $daftarAbsen = $this->karyawan->absenMasuk($idk);
+                if ($absenHarian && $tambahKehadiran && $tambahHistory && $daftarAbsen) {
+                    $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen berhasil'));
+                    redirect(base_url() . 'user');
+                    return;
+                }
+                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
                 redirect(base_url() . 'user');
+                return;
             }
-        } else {
-            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
+            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Batas waktu untuk absen telah berakhir'));
             redirect(base_url() . 'user');
+            return;
         }
+        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
+        redirect(base_url() . 'user');
     }
     public function absenPulang()
     {

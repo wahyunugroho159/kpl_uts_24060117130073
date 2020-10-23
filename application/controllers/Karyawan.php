@@ -117,14 +117,14 @@ class Karyawan extends CI_Controller
                 $this->karyawan->settingAbsensi($start, $end);
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil mengubah pengaturan'));
                 redirect(base_url() . 'karyawan/setting_absensi');
-            } else {
-                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Format jam salah'));
-                redirect(base_url() . 'karyawan/setting_absensi');
+                return;
             }
-        } else {
-            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengubah pengaturan'));
+            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Format jam salah'));
             redirect(base_url() . 'karyawan/setting_absensi');
+            return;
         }
+        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengubah pengaturan'));
+        redirect(base_url() . 'karyawan/setting_absensi');
     }
 
     public function edit()
@@ -187,7 +187,7 @@ class Karyawan extends CI_Controller
 
     public function changeInfoKaryawan()
     {
-        $id = $this->input->post('id');
+        $idk = $this->input->post('id');
         $name = $this->input->post('name');
         $position = $this->input->post('position');
         $age = $this->input->post('age');
@@ -209,17 +209,17 @@ class Karyawan extends CI_Controller
                 'nik' => $nik,
                 'tentang' => $tentang
             );
-            $changeInfo = $this->karyawan->changeInfoKaryawanById($id, $data);
+            $changeInfo = $this->karyawan->changeInfoKaryawanById($idk, $data);
             if ($changeInfo == 1) {
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil mengubah info'));
-                redirect(base_url() . 'karyawan/edit/' . $id);
+                redirect(base_url() . 'karyawan/edit/' . $idk);
             } else {
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengubah info'));
-                redirect(base_url() . 'karyawan/edit/' . $id);
+                redirect(base_url() . 'karyawan/edit/' . $idk);
             }
         } else {
             $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengubah info'));
-            redirect(base_url() . 'karyawan/edit/' . $id);
+            redirect(base_url() . 'karyawan/edit/' . $idk);
         }
     }
 
@@ -301,8 +301,8 @@ class Karyawan extends CI_Controller
     }
     public function absenMasuk()
     {
-        $id = $this->uri->segment(3);
-        $cekId = $this->karyawan->getDataKaryawanById($id);
+        $idk = $this->uri->segment(3);
+        $cekId = $this->karyawan->getDataKaryawanById($idk);
         if ($cekId[0]->id) {
             $getSettingAbsensi = $this->karyawan->getSettingAbsensi();
             $start = $getSettingAbsensi[0]->mulai_absen;
@@ -311,14 +311,14 @@ class Karyawan extends CI_Controller
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Waktu untuk absen belum di mulai'));
                 redirect(base_url() . 'karyawan/absensi_karyawan');
             } elseif (!(time() >= strtotime($end))) {
-                $absensiKaryawan = $this->karyawan->getAbsensiKaryawanById($id);
+                $absensiKaryawan = $this->karyawan->getAbsensiKaryawanById($idk);
                 if ($absensiKaryawan[0]->absen == 1) {
                     $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Sudah absen'));
                     redirect(base_url() . 'karyawan/absensi_karyawan');
                 } else {
-                    $absenHarian = $this->karyawan->absenHarian($id);
-                    $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($id, 'hadir', '+', '1');
-                    $daftarAbsen = $this->karyawan->absenMasuk($id);
+                    $absenHarian = $this->karyawan->absenHarian($idk);
+                    $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($idk, 'hadir', '+', '1');
+                    $daftarAbsen = $this->karyawan->absenMasuk($idk);
                     if ($absenHarian && $tambahKehadiran && $daftarAbsen) {
                         $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen berhasil'));
                         redirect(base_url() . 'karyawan/absensi_karyawan');
@@ -338,8 +338,8 @@ class Karyawan extends CI_Controller
     }
     public function absenPulang()
     {
-        $id = $this->uri->segment(3);
-        $cekId = $this->karyawan->getDataKaryawanById($id);
+        $idk = $this->uri->segment(3);
+        $cekId = $this->karyawan->getDataKaryawanById($idk);
         if ($cekId[0]->id) {
             $getSettingAbsensi = $this->karyawan->getSettingAbsensi();
             $getSettingAbsensi[0]->mulai_absen;
@@ -348,14 +348,14 @@ class Karyawan extends CI_Controller
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Waktu untuk absen belum di mulai'));
                 redirect(base_url() . 'karyawan/absensi_karyawan');
             } elseif (time() >= strtotime($end)) {
-                $absensiKaryawan = $this->karyawan->getAbsensiKaryawanById($id);
+                $absensiKaryawan = $this->karyawan->getAbsensiKaryawanById($idk);
                 if ($absensiKaryawan[0]->absen == 2) {
                     $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Sudah absen'));
                     redirect(base_url() . 'karyawan/absensi_karyawan');
                 } else {
-                    $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($id, 'hadir', '+', '1');
-                    $absenHarian = $this->karyawan->absenHarian2($id);
-                    $daftarAbsen = $this->karyawan->absenPulang($id);
+                    $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($idk, 'hadir', '+', '1');
+                    $absenHarian = $this->karyawan->absenHarian2($idk);
+                    $daftarAbsen = $this->karyawan->absenPulang($idk);
                     if ($tambahKehadiran || $absenHarian || $daftarAbsen) {
                         $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen berhasil'));
                         redirect(base_url() . 'karyawan/absensi_karyawan');
