@@ -153,14 +153,14 @@ class Karyawan extends CI_Controller
             if ($deleteKaryawan == 1 && $deleteAbsen) {
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menghapus karyawan'));
                 redirect(base_url() . 'karyawan/data_karyawan');
-            } else {
-                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal menghapus karyawan'));
-                redirect(base_url() . 'karyawan/data_karyawan');
+                return;
             }
-        } else {
             $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal menghapus karyawan'));
             redirect(base_url() . 'karyawan/data_karyawan');
+            return;
         }
+        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal menghapus karyawan'));
+        redirect(base_url() . 'karyawan/data_karyawan');
     }
 
     public function changeFotoKaryawan()
@@ -175,14 +175,14 @@ class Karyawan extends CI_Controller
             if ($changeFoto == 1) {
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil mengubah foto'));
                 redirect(base_url() . 'karyawan/edit/' . $idk);
-            } else {
-                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengubah foto'));
-                redirect(base_url() . 'karyawan/edit/' . $idk);
+                return;
             }
-        } else {
-            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengupload gambar'));
+            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengubah foto'));
             redirect(base_url() . 'karyawan/edit/' . $idk);
+            return;
         }
+        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengupload gambar'));
+        redirect(base_url() . 'karyawan/edit/' . $idk);
     }
 
     public function changeInfoKaryawan()
@@ -213,14 +213,14 @@ class Karyawan extends CI_Controller
             if ($changeInfo == 1) {
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil mengubah info'));
                 redirect(base_url() . 'karyawan/edit/' . $idk);
-            } else {
-                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengubah info'));
-                redirect(base_url() . 'karyawan/edit/' . $idk);
+                return;
             }
-        } else {
             $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengubah info'));
             redirect(base_url() . 'karyawan/edit/' . $idk);
+            return;
         }
+        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengubah info'));
+        redirect(base_url() . 'karyawan/edit/' . $idk);
     }
 
     public function tambahKaryawan()
@@ -257,18 +257,18 @@ class Karyawan extends CI_Controller
                 if ($addUserKaryawan == 1 || $addDataKarywan == 1 || $addAbsensiKaryawan == 1 || $addDaftarAbsen == 1) {
                     $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menambahkan karyawan'));
                     redirect(base_url() . 'karyawan/tambah_karyawan');
-                } else {
-                    $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal menambahkan karyawan'));
-                    redirect(base_url() . 'karyawan/tambah_karyawan');
+                    return;
                 }
-            } else {
-                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengupload gambar'));
+                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal menambahkan karyawan'));
                 redirect(base_url() . 'karyawan/tambah_karyawan');
+                return;
             }
-        } else {
-            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal menambahkan karyawan'));
+            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal mengupload gambar'));
             redirect(base_url() . 'karyawan/tambah_karyawan');
+            return;
         }
+        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal menambahkan karyawan'));
+        redirect(base_url() . 'karyawan/tambah_karyawan');
     }
 
     public function absensiKaryawan()
@@ -286,18 +286,18 @@ class Karyawan extends CI_Controller
                 if ($upAbsensiKaryawan == 1 || $addAlasanKaryawan == 1) {
                     $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Berhasil menambah absensi'));
                     redirect(base_url() . 'karyawan/absensi_karyawan');
-                } else {
-                    $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal menambah absensi'));
-                    redirect(base_url() . 'karyawan/absensi_karyawan');
+                    return;
                 }
-            } else {
                 $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal menambah absensi'));
                 redirect(base_url() . 'karyawan/absensi_karyawan');
+                return;
             }
-        } else {
             $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal menambah absensi'));
             redirect(base_url() . 'karyawan/absensi_karyawan');
+            return;
         }
+        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal menambah absensi'));
+        redirect(base_url() . 'karyawan/absensi_karyawan');
     }
     public function absenMasuk()
     {
@@ -315,26 +315,26 @@ class Karyawan extends CI_Controller
                 if ($absensiKaryawan[0]->absen == 1) {
                     $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Sudah absen'));
                     redirect(base_url() . 'karyawan/absensi_karyawan');
-                } else {
-                    $absenHarian = $this->karyawan->absenHarian($idk);
-                    $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($idk, 'hadir', '+', '1');
-                    $daftarAbsen = $this->karyawan->absenMasuk($idk);
-                    if ($absenHarian && $tambahKehadiran && $daftarAbsen) {
-                        $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen berhasil'));
-                        redirect(base_url() . 'karyawan/absensi_karyawan');
-                    } else {
-                        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
-                        redirect(base_url() . 'karyawan/absensi_karyawan');
-                    }
+                    return;
                 }
-            } else {
-                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Batas waktu untuk absen telah berakhir'));
+                $absenHarian = $this->karyawan->absenHarian($idk);
+                $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($idk, 'hadir', '+', '1');
+                $daftarAbsen = $this->karyawan->absenMasuk($idk);
+                if ($absenHarian && $tambahKehadiran && $daftarAbsen) {
+                    $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen berhasil'));
+                    redirect(base_url() . 'karyawan/absensi_karyawan');
+                    return;
+                }
+                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
                 redirect(base_url() . 'karyawan/absensi_karyawan');
+                return;
             }
-        } else {
-            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
+            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Batas waktu untuk absen telah berakhir'));
             redirect(base_url() . 'karyawan/absensi_karyawan');
+            return;
         }
+        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
+        redirect(base_url() . 'karyawan/absensi_karyawan');
     }
     public function absenPulang()
     {
@@ -352,25 +352,25 @@ class Karyawan extends CI_Controller
                 if ($absensiKaryawan[0]->absen == 2) {
                     $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Sudah absen'));
                     redirect(base_url() . 'karyawan/absensi_karyawan');
-                } else {
-                    $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($idk, 'hadir', '+', '1');
-                    $absenHarian = $this->karyawan->absenHarian2($idk);
-                    $daftarAbsen = $this->karyawan->absenPulang($idk);
-                    if ($tambahKehadiran || $absenHarian || $daftarAbsen) {
-                        $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen berhasil'));
-                        redirect(base_url() . 'karyawan/absensi_karyawan');
-                    } else {
-                        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
-                        redirect(base_url() . 'karyawan/absensi_karyawan');
-                    }
+                    return;
                 }
-            } else {
-                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Batas waktu untuk absen telah berakhir'));
+                $tambahKehadiran = $this->karyawan->updateAbsensiKaryawan($idk, 'hadir', '+', '1');
+                $absenHarian = $this->karyawan->absenHarian2($idk);
+                $daftarAbsen = $this->karyawan->absenPulang($idk);
+                if ($tambahKehadiran || $absenHarian || $daftarAbsen) {
+                    $this->session->set_flashdata('messageAlert', $this->messageAlert('success', 'Absen berhasil'));
+                    redirect(base_url() . 'karyawan/absensi_karyawan');
+                    return;
+                }
+                $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
                 redirect(base_url() . 'karyawan/absensi_karyawan');
+                return;
             }
-        } else {
-            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
+            $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Batas waktu untuk absen telah berakhir'));
             redirect(base_url() . 'karyawan/absensi_karyawan');
+            return;
         }
+        $this->session->set_flashdata('messageAlert', $this->messageAlert('error', 'Gagal untuk absen'));
+        redirect(base_url() . 'karyawan/absensi_karyawan');
     }
 }
