@@ -137,9 +137,9 @@ class Karyawan extends CI_Controller
             $data['absensiKaryawan'] = $this->karyawan->getAbsensiKaryawanById($idk);
             $data['alasanKaryawan'] = $this->karyawan->getAlasanKaryawanByName($dataKaryawan[0]->name);
             $this->load->view('admin/EditKaryawan', $data);
-        } else {
-            redirect();
+            return;
         }
+        redirect();
     }
 
     public function delete()
